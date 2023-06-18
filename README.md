@@ -1,4 +1,4 @@
-# dotdroid
+# Anroid's dotfiles
 
 ## Introduction
 
@@ -11,3 +11,9 @@ After a while I bought [Samsung Galaxy S21](https://en.wikipedia.org/wiki/Samsun
 
 The experience with Android so far is better than iOS and it has more free and open source applications.
 Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also supports 5G in my homeland.
+
+## Softwares
+
+| Application | Description | Sources |
+|:-----------:|:------------|:--------|
+| Password Store | Store and access to passwords based on [gopass](https://github.com/gopasspw/) | F-Droid, [GitHub](https://github.com/android-password-store/Android-Password-Store) |
