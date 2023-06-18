@@ -1,4 +1,4 @@
-# Anroid's dotfiles
+# Android's dotfiles
 
 ## Introduction
 
