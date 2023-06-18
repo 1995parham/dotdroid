@@ -17,3 +17,5 @@ Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also
 | Application | Description | Sources |
 |:-----------:|:------------|:--------|
 | Password Store | Store and access to passwords based on [gopass](https://github.com/gopasspw/) | F-Droid, [GitHub](https://github.com/android-password-store/Android-Password-Store) |
+| shadowsocks | Shadowsocks client | F-Droid, [GitHub](https://github.com/shadowsocks/shadowsocks-android) |
+| Syncthing | Sync files using [Syncthing](https://github.com/syncthing) | F-Droid |
