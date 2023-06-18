@@ -31,7 +31,7 @@ Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also
 |       Telegram FOSS       | Open-source telegram client                                                   | F-Droid, [GitHub](https://github.com/Telegram-FOSS-Team/Telegram-FOSS)              |
 |           Xodo            | PDF Reader                                                                    | [Soft98](https://soft98.ir/android/office-adnroid/15855-xodo-pdf.html)              |
 | Advanced Download Manager | Download manager                                                              | [Soft98](https://soft98.ir/android/internet-app/3949-adm-dll-android.html)          |
-|     RetroMusicPlayer      | Music player                                                                  | [GitHub](https://github.com/RetroMusicPlayer/RetroMusicPlayer)                      |
+|     RetroMusicPlayer      | Music player                                                                  | Play Store, [GitHub](https://github.com/RetroMusicPlayer/RetroMusicPlayer)          |
 |      Material Files       | File manager                                                                  | F-Droid                                                                             |
 |   PicsArt Photo Studio    | Photo editor                                                                  | [Sotf98](https://soft98.ir/14121-PicsArt-Photo-Studio.html)                         |
 |          30Nama           | Watch movie online                                                            | [GitHub](https://github.com/Mr30nama/30nama-Android)                                |
