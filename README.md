@@ -1,7 +1,7 @@
 <h1 align="center">Android's dotfiles</h1>
 
 <p align="center">
-    <img src="./banner.jpg">
+    <img src="./banner.jpg" height="200px">
 </p>
 
 ## Introduction
