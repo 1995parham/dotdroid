@@ -48,4 +48,4 @@ Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also
 |      Galaxy Wearable      | Galaxy Watch/Buds                                                                                     | Play Store                                                                          |
 |         Jeanwest          | Australian apparel chain store                                                                        | MyKet                                                                               |
 |           Bale            | The financial social network which provides you with the possibility to chat and pay at the same time | MyKet                                                                               |
-|          Squid            | Takes notes & markup pdf | Farsroid |
+|          Squid            | Takes notes & markup pdf | [Farsroid](https://www.farsroid.com/squid-premium-formerly-papyrus/) |
