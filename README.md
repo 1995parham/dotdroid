@@ -14,9 +14,14 @@ After having these multiple models of iPhone, I finally decide to back with andr
 After a while I bought [Samsung Galaxy S21](https://en.wikipedia.org/wiki/Samsung_Galaxy_S21), and now I have [Nothing Phone (1)](https://en.wikipedia.org/wiki/Nothing_Phone_1).
 
 The experience with Android so far is better than iOS, and it has more free and open source applications.
-Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also supports 5G in my homeland.
+Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome. Nothing Phone also supports 5G in my homeland.
 
 ## Applications
+
+- [**MyKet**](https://myket.ir/)
+- [**Play Store**](https://play.google.com/)
+- [**F-Droid**](https://f-droid.org/)
+- [**Farsroid**](https://www.farsroid.com/)
 
 |        Application        | Description                                                                                           | Sources                                                                             |
 | :-----------------------: | :---------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
@@ -37,12 +42,13 @@ Nothing Phone (1) is also comparable to its price is awesome. Nothing Phone also
 |     RetroMusicPlayer      | Music player                                                                                          | Play Store, [GitHub](https://github.com/RetroMusicPlayer/RetroMusicPlayer)          |
 |      Material Files       | File manager                                                                                          | F-Droid                                                                             |
 |   PicsArt Photo Studio    | Photo editor                                                                                          | [Farsroid](https://www.farsroid.com/picsart-photo-studio/)                          |
+| Polish Photo Editor Pro | Photo editor | [Farsroid](https://www.farsroid.com/photo-editor-pro-polish/)
 |          30Nama           | Watch movie online                                                                                    | [GitHub](https://github.com/Mr30nama/30nama-Android)                                |
 |       OpenKeychain        | GPG client, which is required for Password Store version 1.13.5 or earlier                            | F-Droid                                                                             |
 |        Aves Libre         | Image Gallery and metadata explorer                                                                   | F-Droid                                                                             |
 |          Discord          | A place to talk and hang out                                                                          | Play Store                                                                          |
-|      Firefox Nightly      | Browser                                                                                               | Play Store                                                                          |
-|       Firefox Focus       | Browser                                                                                               | Play Store                                                                          |
+|      Firefox Nightly      | Browser                                                                                               | Play Store / MyKet                                                                  |
+|       Firefox Focus       | Browser                                                                                               | Play Store / MyKet                                                                  |
 |      Galaxy Wearable      | Galaxy Watch/Buds                                                                                     | Play Store                                                                          |
 |         Jeanwest          | Australian apparel chain store                                                                        | MyKet                                                                               |
 |           Bale            | The financial social network which provides you with the possibility to chat and pay at the same time | MyKet                                                                               |
