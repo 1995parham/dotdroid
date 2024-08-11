@@ -6,8 +6,12 @@
 
 ## Introduction
 
+I began my mobile journey with the [Sony Ericsson K800i](https://en.wikipedia.org/wiki/Sony_Ericsson_K800i), followed by the [Nokia N96](https://en.wikipedia.org/wiki/Nokia_N96),
+and eventually transitioned to the world of smartphones.
+
 [Xperia X10](https://en.wikipedia.org/wiki/Sony_Ericsson_Xperia_X10) was my first Android phone, the experience was terrible.
 I was a teenager and I want to run multiple applications with my phone and comparable to my friends iPhone it was socks.
+Then I bought [Xperia Z](https://en.wikipedia.org/wiki/Sony_Xperia_Z) before going into the iOS world.
 
 Then I had iPhone 3g, after that I bought iPhone 4 and continue with it until I bought iPhone 5s, iPhone 6s and iPhone 7.
 After having these multiple models of iPhone, I finally decide to back with android, so I bought [Samsung Galaxy S9](https://en.wikipedia.org/wiki/Samsung_Galaxy_S9).
