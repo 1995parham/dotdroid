@@ -58,7 +58,8 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |         Jeanwest          | Australian apparel chain store                                                                        | MyKet                                                                               |
 |           Bale            | The financial social network which provides you with the possibility to chat and pay at the same time | MyKet                                                                               |
 |           Squid           | Takes notes & markup PDF                                                                              | [Farsroid](https://www.farsroid.com/squid-premium-formerly-papyrus/)                |
-
+| Nothing Icon Pack | Nothing Icon Pack in our monochrome colour scheme. | [Play Store](
+https://play.google.com/store/apps/details?id=com.nothing.icon) |
 ## Good to know
 
 ### S-Pen is not working
