@@ -47,7 +47,7 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |     RetroMusicPlayer      | Music player                                                                                          | Play Store, [GitHub](https://github.com/RetroMusicPlayer/RetroMusicPlayer)          |
 |      Material Files       | File manager                                                                                          | F-Droid                                                                             |
 |   PicsArt Photo Studio    | Photo editor                                                                                          | [Farsroid](https://www.farsroid.com/picsart-photo-studio/)                          |
-| Polish Photo Editor Pro | Photo editor | [Farsroid](https://www.farsroid.com/photo-editor-pro-polish/)
+|  Polish Photo Editor Pro  | Photo editor                                                                                          | [Farsroid](https://www.farsroid.com/photo-editor-pro-polish/)                       |
 |          30Nama           | Watch movie online                                                                                    | [GitHub](https://github.com/Mr30nama/30nama-Android)                                |
 |       OpenKeychain        | GPG client, which is required for Password Store version 1.13.5 or earlier                            | F-Droid                                                                             |
 |        Aves Libre         | Image Gallery and metadata explorer                                                                   | F-Droid                                                                             |
@@ -58,7 +58,7 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |         Jeanwest          | Australian apparel chain store                                                                        | MyKet                                                                               |
 |           Bale            | The financial social network which provides you with the possibility to chat and pay at the same time | MyKet                                                                               |
 |           Squid           | Takes notes & markup PDF                                                                              | [Farsroid](https://www.farsroid.com/squid-premium-formerly-papyrus/)                |
-| Nothing Icon Pack | Nothing Icon Pack in our monochrome colour scheme. | [Play Store](https://play.google.com/store/apps/details?id=com.nothing.icon) |
+|     Nothing Icon Pack     | Nothing Icon Pack in our monochrome colour scheme.                                                    | [Play Store](https://play.google.com/store/apps/details?id=com.nothing.icon)        |
 
 ## Good to know
 
