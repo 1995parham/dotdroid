@@ -59,6 +59,8 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |           Bale            | The financial social network which provides you with the possibility to chat and pay at the same time | MyKet                                                                               |
 |           Squid           | Takes notes & markup PDF                                                                              | [Farsroid](https://www.farsroid.com/squid-premium-formerly-papyrus/)                |
 |     Nothing Icon Pack     | Nothing Icon Pack in our monochrome colour scheme.                                                    | [Play Store](https://play.google.com/store/apps/details?id=com.nothing.icon)        |
+| Noor Aljinan | | [Play Store](https://play.google.com/store/apps/details?id=org.crcis.mafatih), MyKet |
+| Quran | | [Play Store](https://play.google.com/store/apps/details?id=org.crcis.quran), MyKet |
 
 ## Good to know
 
