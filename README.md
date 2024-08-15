@@ -30,7 +30,7 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 
 |        Application        | Description                                                                                           | Sources                                                                             |
 | :-----------------------: | :---------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------- |
-|      Password Store       | Stores and accesses to passwords based on [`gopass`](https://github.com/gopasspw/)                    | F-Droid, [GitHub](https://github.com/android-password-store/Android-Password-Store) |
+|      Android Password Store       | Stores and accesses to passwords based on [`gopass`](https://github.com/gopasspw/)                    | F-Droid, [GitHub](https://github.com/android-password-store/Android-Password-Store) |
 |        shadowsocks        | A Shadowsocks client                                                                                  | F-Droid, [GitHub](https://github.com/shadowsocks/shadowsocks-android)               |
 |         Syncthing         | Sync files using [Syncthing](https://github.com/syncthing)                                            | F-Droid                                                                             |
 |        FlorisBoard        | Keyboard                                                                                              | F-Droid, [GitHub](https://github.com/florisboard/florisboard)                       |
