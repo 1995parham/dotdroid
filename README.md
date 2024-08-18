@@ -62,7 +62,7 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 
 ### S-Pen is not working
 
-For anyone that's having a problem with their s-pen such as needing to press harder on the screen just for it to register or work to scroll etc etc take the s-pen out of the phone and hold it in your hand
-at the top near the clicker and take your other hand and FLICK it (kind of like if you were going to flick the back of someones ear, lol) pretty good a couple of times at the bottom near the TIP and then
-try to see if the sensitivity changes back to the way its supposed to be like on the older Notes.. It has something to do with the spring or something in there and if you flick it a few times pretty hard
-it fixes the spring holding the s-pen tip and then it'll work like a charm! Obviously don't try to flick it hard enough to break it people! [Source](https://xdaforums.com/t/s-pen-sensitivity-fix.4159589/)
+For anyone that's having a problem with their s-pen such as needing to press harder on the screen just for it to register or work to scroll etc. take the s-pen out of the phone and hold it in your hand
+at the top near the clicker and take your other hand and FLICK it (kind of like if you were going to flick the back of someone's ear, lol) pretty good a couple of times at the bottom near the TIP and then
+try to see if the sensitivity changes back to the way it is supposed to be like on the older Notes. It has something to do with the spring or something in there and if you flick it a few times pretty hard
+it fixes the spring holding the s-pen tip, and then it'll work like a charm! Obviously don't try to flick it hard enough to break it people! [Source](https://xdaforums.com/t/s-pen-sensitivity-fix.4159589/)
