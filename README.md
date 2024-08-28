@@ -57,6 +57,7 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |             Nothing Icon Pack             | Nothing Icon Pack in our monochrome color scheme.                                                                                                            | [Play Store](https://play.google.com/store/apps/details?id=com.nothing.icon)                                                                            |
 |               Noor Aljinan                |                                                                                                                                                              | [Play Store](https://play.google.com/store/apps/details?id=org.crcis.mafatih), MyKet                                                                    |
 |                   Quran                   | An Android app designed for reading and studying the Quran, offering features like translation, recitation, and bookmarking.                                 | [Play Store](https://play.google.com/store/apps/details?id=org.crcis.quran), [MyKet](https://myket.ir/app/org.crcis.quran)                              |
+|             Microsoft Outlook             |                                                                                                                                                              | [Play Store](https://play.google.com/store/apps/details?id=com.microsoft.office.outlook)                                                                |
 
 ## Good to know
 
