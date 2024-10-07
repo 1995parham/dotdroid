@@ -65,11 +65,9 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |               FakeTraveler                | Fake your location                                                                                                                                                                                                                                        | [F-Droid](https://f-droid.org/packages/cl.coders.faketraveler/)                                                                                         |
 |                 Obsidian                  | Obsidian is the private and flexible writing app that adapts to the way you think.                                                                                                                                                                        | [GitHub](https://github.com/obsidianmd/obsidian-releases/), [PlayStore](https://play.google.com/store/apps/details?id=md.obsidian)                      |
 
-## Good to know
+## Screenshots
 
-### S-Pen is not working
-
-For anyone that's having a problem with their s-pen such as needing to press harder on the screen just for it to register or work to scroll etc. take the s-pen out of the phone and hold it in your hand
-at the top near the clicker and take your other hand and FLICK it (kind of like if you were going to flick the back of someone's ear, lol) pretty good a couple of times at the bottom near the TIP and then
-try to see if the sensitivity changes back to the way it is supposed to be like on the older Notes. It has something to do with the spring or something in there and if you flick it a few times pretty hard
-it fixes the spring holding the s-pen tip, and then it'll work like a charm! Obviously don't try to flick it hard enough to break it people! [Source](https://xdaforums.com/t/s-pen-sensitivity-fix.4159589/)
+![mainscreen-1](./screenshots/mainscreen-1.jpg)
+![mainscreen-2](./screenshots/mainscreen-2.jpg)
+![lockscreen](./screenshots/lockscreen.jpg)
+![apps](./screenshots/apps.jpg)
