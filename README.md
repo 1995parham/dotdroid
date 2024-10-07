@@ -67,7 +67,9 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 
 ## Screenshots
 
-![mainscreen-1](./screenshots/mainscreen-1.jpg)
-![mainscreen-2](./screenshots/mainscreen-2.jpg)
-![lockscreen](./screenshots/lockscreen.jpg)
-![apps](./screenshots/apps.jpg)
+<p align="center">
+    <img alt="mainscreen-1" src="./screenshots/mainscreen-1.jpg" />
+    <img alt="mainscreen-2" src="./screenshots/mainscreen-2.jpg" />
+    <img alt="lockscreen" src="./screenshots/lockscreen.jpg" />
+    <img alt="apps" src="./screenshots/apps.jpg" />
+</p>
