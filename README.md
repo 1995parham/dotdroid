@@ -65,6 +65,27 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 |                  Termux                   | Termux combines powerful terminal emulation with an extensive Linux package collection.                                                                                                                                                                   | [F-Droid](https://f-droid.org/en/packages/com.termux/)                                                                                                  |
 |               Termux-Widget               | Launch Termux commands from the homescreen                                                                                                                                                                                                                | [F-Droid](https://f-droid.org/en/packages/com.termux.widget/)                                                                                           |
 
+## Termux
+
+Termux is a powerful terminal emulation for Android, with broad community and robust package manager.
+Making it easier to run Linux computing right in your pocket these days.
+
+```bash
+pkg install openssh
+```
+
+To start the SSH server, run this command
+
+```bash
+sshd
+```
+
+If you need to kill the server, just kill its process
+
+```bash
+pkill sshd
+```
+
 ## Screenshots
 
 <p align="center">
