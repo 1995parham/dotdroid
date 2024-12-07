@@ -86,7 +86,8 @@ If you need to kill the server, just kill its process
 pkill sshd
 ```
 
-Password authentication is enabled by default on termux, but you can still review the configuration by running:
+Password authentication is enabled by default on termux and it listens on 8022 port,
+but you can still review the configuration by running:
 
 ```bash
 cat $PREFIX/etc/ssh/sshd_config
@@ -95,6 +96,23 @@ cat $PREFIX/etc/ssh/sshd_config
 ```
 PrintMotd yes
 PasswordAuthentication yes
+```
+
+Set new password
+
+```bash
+passwd
+```
+
+Please note that, termux doesn't have any user, so you can use anything in your ssh connection.
+After having successful connection it is better to install ssh-keys and disable password authentication.
+
+There is a chance that you need to do the ssh connection when you phone is connected to your laptop.
+
+```bash
+adb forward tcp:8022 tcp:8022
+
+ssh 127.0.0.1 -p 8022
 ```
 
 ## Screenshots
