@@ -92,6 +92,11 @@ Password authentication is enabled by default on termux, but you can still revie
 cat $PREFIX/etc/ssh/sshd_config
 ```
 
+```
+PrintMotd yes
+PasswordAuthentication yes
+```
+
 ## Screenshots
 
 <p align="center">
