@@ -86,6 +86,12 @@ If you need to kill the server, just kill its process
 pkill sshd
 ```
 
+Password authentication is enabled by default on termux, but you can still review the configuration by running:
+
+```bash
+cat $PREFIX/etc/ssh/sshd_config
+```
+
 ## Screenshots
 
 <p align="center">
