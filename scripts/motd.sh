@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 usage() {
-  echo "Message of the day"
+	echo "Message of the day"
 
-  # shellcheck disable=1004,2016
-  echo '
+	# shellcheck disable=1004,2016
+	echo '
                  _      _
  _ __ ___   ___ | |_ __| |
 | |_ ` _ \ / _ \| __/ _` |
@@ -12,36 +12,34 @@ usage() {
   '
 }
 
-
-
 pre_main() {
-  return 0
+	return 0
 }
 
 main_pacman() {
-  return 1
+	return 1
 }
 
 main_xbps() {
-  return 1
+	return 1
 }
 
 main_apt() {
-  return 1
+	return 1
 }
 
 main_pkg() {
-  copycat "motd" motd/motd "$PREFIX/etc/motd" "0"
+	copycat "motd" motd/motd "$PREFIX/etc/motd" "0"
 }
 
 main_brew() {
-  return 1
+	return 1
 }
 
 main() {
-  return 0
+	return 0
 }
 
 main_parham() {
-  return 0
+	return 0
 }
