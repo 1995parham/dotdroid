@@ -32,7 +32,7 @@ main_apt() {
 }
 
 main_pkg() {
-  linker "wallpapers" "$root/wallpapers" "/sdcard/Pictures/wallpapers"
+  rsync -av "$root/wallpapers/" "/sdcard/Pictures/wallpapers"
 }
 
 main_brew() {
