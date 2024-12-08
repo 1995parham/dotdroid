@@ -33,6 +33,9 @@ main_apt() {
 
 main_pkg() {
   rsync -av "$root/wallpapers/" "/sdcard/Pictures/wallpapers"
+
+  termux-wallpaper -l -f "$root/wallpapers/lockscreen.jpg"
+  termux-wallpaper  -f "$root/wallpapers/mainscreen.jpg"
 }
 
 main_brew() {
