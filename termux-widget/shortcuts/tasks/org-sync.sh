@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# https://stackoverflow.com/questions/3822621/how-to-exit-if-a-command-failed
-set -eu
-set -o pipefail
-
 cd /sdcard/Notes/org
 
 # command used to auto-commit file modifications
@@ -22,40 +18,15 @@ DEFAULT_AUTOCOMMIT_MSG="changes from an android device $DEVICE on $(date)"
 
 print_usage() {
 	cat <<EOF
-usage: $0 [-h] [-n] [-s] [MODE]
+usage: [MODE]
 
 Synchronize the current branch to a remote backup
 MODE may be either "sync" (the default) or "check", to verify that the branch is ready to sync
-
-OPTIONS:
-   -h      Show this message
-   -n      Commit new files even if branch.\$branch_name.syncNewFiles isn't set
-   -s      Sync the branch even if branch.\$branch_name.sync isn't set
 EOF
 }
 
-sync_new_files_anyway="false"
-sync_anyway="false"
-
-while getopts "hns" opt; do
-	case $opt in
-	h)
-		print_usage
-		exit 0
-		;;
-	n)
-		sync_new_files_anyway="true"
-		;;
-	s)
-		sync_anyway="true"
-		;;
-	*)
-		print_usage
-		exit 0
-		;;
-	esac
-done
-shift $((OPTIND - 1))
+sync_new_files_anyway="true"
+sync_anyway="true"
 
 #
 #    utility functions, some adapted from git bash completion
@@ -214,6 +185,8 @@ if [ -z "$branch_name" ]; then
 	exit 2
 fi
 
+__log_msg "$branch_name"
+
 # while at it, determine the remote to operate on
 remote_name=$(git config --get "branch.$branch_name.pushRemote")
 if [ -z "$remote_name" ]; then
@@ -234,6 +207,8 @@ if [ -z "$remote_name" ]; then
 	__log_msg "to set the remote tracking branch for git-sync to work"
 	exit 2
 fi
+
+__log_msg "$remote_name"
 
 # check if current branch is configured for sync
 if [[ "true" != "$(git config --get --bool "branch.$branch_name.sync")" && "true" != "$sync_anyway" ]]; then
@@ -297,7 +272,7 @@ if [ -n "$(local_changes)" ]; then
 	if [ "" == "$commit_msg" ]; then
 		commit_msg=${DEFAULT_AUTOCOMMIT_MSG}
 	fi
-	autocommit_cmd="${autocommit_cmd/%message/$commit_msg/}"
+	autocommit_cmd=$(echo "$autocommit_cmd" | sed "s/%message/$commit_msg/")
 
 	__log_msg "Committing local changes using ${autocommit_cmd}"
 	eval "$autocommit_cmd"
