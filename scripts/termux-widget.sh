@@ -30,9 +30,9 @@ main_apt() {
 }
 
 main_pkg() {
-	mkdir -p "$HOME/.shortcuts/tasks" || true
-	copycat "termux-widget" "termux-widget/shortcuts/tasks/org-sync.sh" "$HOME/.shortcuts/tasks/org-sync.sh" 0
-	copycat "termux-widget" "termux-widget/shortcuts/tasks/start-sshd.sh" "$HOME/.shortcuts/tasks/start-sshd.sh" 0
+	mkdir "$HOME/.shortcuts" || true
+	copycat "termux-widget" "termux-widget/shortcuts/org-sync.sh" "$HOME/.shortcuts/org-sync.sh" 0
+	copycat "termux-widget" "termux-widget/shortcuts/start-sshd.sh" "$HOME/.shortcuts/start-sshd.sh" 0
 }
 
 main_brew() {
