@@ -126,6 +126,7 @@ When you get the access, you can setup the environment:
 ```bash
 pkg install git
 git clone https://github.com/1995parham/dotfiles
+git clone https://github.com/1995parham/dotdroid
 ```
 
 ## Screenshots
