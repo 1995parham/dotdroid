@@ -115,6 +115,19 @@ adb forward tcp:8022 tcp:8022
 ssh 127.0.0.1 -p 8022
 ```
 
+or you can use Wi-Fi:
+
+```bash
+ssh 192.168.73.230 -p 8022
+```
+
+When you get the access, you can setup the environment:
+
+```bash
+pkg install git
+git clone https://github.com/1995parham/dotfiles
+```
+
 ## Screenshots
 
 <p align="center">
