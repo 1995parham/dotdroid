@@ -86,7 +86,7 @@ If you need to kill the server, just kill its process
 pkill sshd
 ```
 
-Password authentication is enabled by default on termux and it listens on 8022 port,
+Password authentication is enabled by default on Termux, and it listens on 8022 port,
 but you can still review the configuration by running:
 
 ```bash
@@ -102,12 +102,14 @@ Set new password
 
 ```bash
 passwd
+
+ifconfig
 ```
 
-Please note that, termux doesn't have any user, so you can use anything in your ssh connection.
+Please note that, Termux doesn't have any user, so you can use anything in your ssh connection.
 After having successful connection it is better to install ssh-keys and disable password authentication.
 
-There is a chance that you need to do the ssh connection when you phone is connected to your laptop.
+There is a chance that you need to do the ssh connection when your phone is connected to your laptop.
 
 ```bash
 adb forward tcp:8022 tcp:8022
@@ -115,13 +117,13 @@ adb forward tcp:8022 tcp:8022
 ssh 127.0.0.1 -p 8022
 ```
 
-or you can use Wi-Fi:
+Or you can use Wi-Fi:
 
 ```bash
 ssh 192.168.73.230 -p 8022
 ```
 
-When you get the access, you can setup the environment:
+When you get the access, you can set up the environment:
 
 ```bash
 pkg install git
