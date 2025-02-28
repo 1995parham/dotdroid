@@ -38,6 +38,10 @@ function repository_force_sync() {
   message "Synchronization complete."
 }
 
+git config --global --add safe.directory /storage/emulated/0/Documents/documents
+git config --global --add safe.directory /storage/emulated/0/Documents/profile-pics
+git config --global --add safe.directory /storage/emulated/0/Documents/travels
+
 repository_force_sync /sdcard/Documents/documents
 repository_force_sync /sdcard/Documents/profile-pics
 repository_force_sync /sdcard/Documents/travels
