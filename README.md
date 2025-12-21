@@ -22,6 +22,41 @@ and now I have [Nothing Phone (2a)](https://en.wikipedia.org/wiki/Nothing_Phone_
 The experience with Android so far is better than iOS, and it has more free and open source applications.
 Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome. Nothing Phone also supports 5G in my homeland.
 
+## Scope
+
+This repository targets Termux on Android only. The scripts assume Termux paths such as `$PREFIX` and `/sdcard`,
+plus Termux package names.
+
+## Quick start (Termux)
+
+Install Termux, and optionally Termux-Widget and Termux-API for widget shortcuts and notifications.
+
+```bash
+pkg update
+pkg install git openssh rsync fd ripgrep termux-api
+termux-setup-storage
+git clone https://github.com/1995parham/dotdroid
+cd dotdroid
+```
+
+List available scripts:
+
+```bash
+./start.sh list
+```
+
+## Usage
+
+- `./start.sh motd`: install `motd` into `$PREFIX/etc/motd`.
+- `./start.sh wallpapers`: sync wallpapers to `/sdcard/Pictures/wallpapers`.
+- `./start.sh termux-widget`: install widget shortcuts into `~/.shortcuts`.
+- `./start.sh ssh`: disable password auth in Termux sshd.
+
+## Safety
+
+- `termux-widget/shortcuts/documents-sync.sh` runs `git reset --hard` and `git clean -fdx` on the configured
+  `/sdcard/Documents/*` repos. Review the paths and branch name before running it.
+
 ## Applications
 
 - [**MyKet**](https://myket.ir/)
@@ -71,6 +106,12 @@ Nothing Phone (1) / Noting Phone (2a) is also comparable to its price is awesome
 
 Termux is a powerful terminal emulation for Android, with broad community and robust package manager.
 Making it easier to run Linux computing right in your pocket these days.
+
+If you need storage access for `/sdcard`, run this once:
+
+```bash
+termux-setup-storage
+```
 
 ```bash
 pkg install openssh
