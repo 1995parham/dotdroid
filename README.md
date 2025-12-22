@@ -33,11 +33,13 @@ Install Termux, and optionally Termux-Widget and Termux-API for widget shortcuts
 
 ```bash
 pkg update
-pkg install git openssh rsync fd ripgrep termux-api
-termux-setup-storage
+pkg install git
 git clone https://github.com/1995parham/dotdroid
 cd dotdroid
+./start.sh bootstrap
 ```
+
+`./start.sh bootstrap` installs core packages, requests storage access, and offers optional extras.
 
 List available scripts:
 
@@ -47,6 +49,7 @@ List available scripts:
 
 ## Usage
 
+- `./start.sh bootstrap`: install core packages and request storage permission.
 - `./start.sh motd`: install `motd` into `$PREFIX/etc/motd`.
 - `./start.sh wallpapers`: sync wallpapers to `/sdcard/Pictures/wallpapers`.
 - `./start.sh termux-widget`: install widget shortcuts into `~/.shortcuts`.
