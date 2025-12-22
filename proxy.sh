@@ -4,6 +4,18 @@
 # by default it checkes for 127.0.0.1:2081 to find a proxy
 # but you can also manually pass the proxy url.
 
+source="$0"
+if [[ -n "${BASH_SOURCE[0]}" ]]; then
+    source="${BASH_SOURCE[0]}"
+fi
+
+if ! source "$(dirname "$source")/message.sh" 2>/dev/null; then
+    if [ -n "$DOTFILES_ROOT" ]; then
+        # shellcheck source=message.sh
+        source "$DOTFILES_ROOT/scripts/lib/message.sh"
+    fi
+fi
+
 proxy_start() {
     if [ $# -gt 1 ]; then
         return 1
@@ -12,19 +24,19 @@ proxy_start() {
     else
         url="http://127.0.0.1:2081"
 
-        if [[ -n $(command -v ss) ]]; then
+        if command -v ss >/dev/null 2>&1; then
             if ! (ss -tunl | grep :2081 &>/dev/null); then
                 return 0
             fi
-        elif [[ -n $(command -v netstat) ]]; then
+        elif command -v netstat >/dev/null 2>&1; then
             if ! (netstat -an | grep LISTEN | grep 2081 &>/dev/null); then
                 return 0
             fi
         fi
     fi
 
-    echo -e "\033[38;5;46m[proxy] \033[38;5;202msetup proxy based on http proxy on $url\033[39m"
-    echo -e "\033[38;5;46m[proxy] \033[38;5;202mpress enter to continue or anything else to disable it\033[39m"
+    echo -e "${F_SUCCESS}[proxy] ${F_NOTICE}setup proxy based on http proxy on $url${ALL_RESET}"
+    echo -e "${F_SUCCESS}[proxy] ${F_NOTICE}press enter to continue or anything else to disable it${ALL_RESET}"
     read -r accept
 
     if [[ "${accept}" != "" ]]; then
@@ -48,5 +60,5 @@ proxy_stop() {
     unset {http,https,ftp}_proxy || true
     unalias sudo 2>/dev/null || true
 
-    echo -e "\033[38;5;46m[proxy] \033[38;5;202mall proxy script configurations are removed\033[39m"
+    echo -e "${F_SUCCESS}[proxy] ${F_NOTICE}all proxy script configurations are removed${ALL_RESET}"
 }
