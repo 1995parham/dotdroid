@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
+ip_country_url="https://api.ipquery.io/?format=json"
+# ip_country_url="https://api.ipapi.is"
+
 # check being in the specific country
 function require_country() {
     country=${1:?"country is required"}
-    current_country="$(curl -s https://ipconfig.io/country)"
+    current_country="$(curl -m 10 -s "$ip_country_url" | jq -r '.location.country' 2>/dev/null)"
+    if [[ -z "${current_country}" ]]; then
+        message "country" "󰈻 failed to detect current country" "error"
+        return 1
+    fi
     if [[ "${current_country}" != "${country}" ]]; then
         message "country" "󰈻 please be in ${country} instead of ${current_country}" "error"
         return 1
@@ -15,7 +22,11 @@ function require_country() {
 # check not being in the specific country
 function not_require_country() {
     country=${1:?"country is required"}
-    current_country="$(curl -s https://ipconfig.io/country)"
+    current_country="$(curl -m 10 -s "$ip_country_url" | jq -r '.location.country' 2>/dev/null)"
+    if [[ -z "${current_country}" ]]; then
+        message "country" "󰈻 failed to detect current country" "error"
+        return 1
+    fi
     if [[ "${current_country}" == "${country}" ]]; then
         message "country" "󰈻 please be in another country instead of ${country}" "error"
         return 1
@@ -80,7 +91,7 @@ function require_brew() {
 
     if [[ ${#to_install_pkg[@]} -ne 0 ]]; then
         action "require" " brew install ${to_install_pkg[*]}"
-        brew install "${to_install_pkg[@]}"
+        brew install --formula "${to_install_pkg[@]}"
     fi
 }
 
@@ -109,18 +120,10 @@ function require_brew_cask() {
     done
 }
 
-# install packages using brew cask fetch-HEAD
-function require_brew_cask_head() {
-    for pkg in "$@"; do
-        running "require" " brew cask head ${pkg}"
-        if ! brew list --cask --versions "${pkg}" &>/dev/null; then
-            action "require" " brew install --cask --fetch ${pkg}"
-            brew install --cask --fetch "${pkg}"
-        else
-            action "require" " brew upgrade --cask --fetch-HEAD ${pkg}"
-            brew upgrade --cask --fetch-HEAD "${pkg}"
-        fi
-    done
+# install packages using snap
+function require_snap() {
+    action "require" " snap install $* (snap ignore installed package itself)"
+    sudo snap install "$@"
 }
 
 # install packages using apt
@@ -179,9 +182,19 @@ function require_xbps() {
 
 # install packages from AUR using yay
 function require_aur() {
+    if [[ -z "$(command -v yay)" ]]; then
+        message "require" "yay command does not exist, so there is no support for aur, use 'allow_no_aur' to bypass aur" "error"
+
+        if [[ "${allow_no_aur:-false}" = true ]]; then
+            return 0
+        else
+            return 1
+        fi
+    fi
+
     for pkg in "$@"; do
         running "require" " arch users repository ${pkg}"
-        if (! pacman -Qi "${pkg}" &>/dev/null); then
+        if (! pacman -Q "${pkg}" &>/dev/null); then
             action "require" " yay -Sy ${pkg}"
             yay -Sy --sudoloop --noconfirm "${pkg}"
         elif [[ "${pkg}" =~ .*-git ]]; then
@@ -222,9 +235,9 @@ function require_pip() {
         name=$(echo "${name}" | xargs)
 
         running "require" " python ${name} (${pkg})"
-        if ${not_specific_version} && (pipx list | grep "${pkg}" &>/dev/null); then
+        if ${not_specific_version} && (pipx list | grep "${name}" &>/dev/null); then
             action "require" " pipx upgrade ${name} (${pkg})"
-            pipx upgrade "${pkg}"
+            pipx upgrade "${name}"
         else
             if ${not_specific_version}; then
                 action "require" " pipx install ${name} (${pkg})"
@@ -240,98 +253,57 @@ function require_pip() {
 function require_npm() {
     for pkg in "$@"; do
         action "require" "󰎙 node ${pkg}"
-        if ! (node -g list "${pkg}" &>/dev/null); then
-            sudo npm install -g "${pkg}"
+        if ! (npm list -g "${pkg}" &>/dev/null); then
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                npm install -g "${pkg}"
+            else
+                sudo npm install -g "${pkg}"
+            fi
         fi
     done
 }
 
 # check and add the given hostname, address pair into /etc/hosts.
 function require_hosts_record() {
+    local address
+    local name
     address=${1:?"address is required"}
     name=${2:?"name is required"}
 
+    message 'hosts' "add mapping from $name to $address"
+
     if [[ ! -f /etc/hosts ]]; then
-        printf "# Static table lookup for hostnames.\n# See hosts(5) for details." | tee /etc/hosts
+        printf "# Static table lookup for hostnames.\n# See hosts(5) for details." | sudo tee /etc/hosts
     fi
 
     # find existing instances in the host file and save the line numbers
-    matches_in_hosts="$(grep -n -e '\s'"$name" /etc/hosts | cut -f1 -d:)"
+    local host_entry
     host_entry=$(printf "%s\t%s" "${address}" "${name}")
 
-    if [ -n "$matches_in_hosts" ]; then
-        message "hosts" "updating existing hosts entry"
+    message 'hosts' "the host entry is $host_entry"
 
-        # iterate over the line numbers on which matches were found
-        while read -r line_number; do
-            # replace the text of each line with the desired host entry
-            sudo sed -i '' "${line_number}s/.*/${host_entry}/" /etc/hosts
-        done <<<"$matches_in_hosts"
-    else
+    local matches_in_hosts
+
+    if ! matches_in_hosts="$(grep -n -e '\s'"$name" /etc/hosts | cut -f1 -d:)"; then
         message "hosts" "adding new hosts entry"
         echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
-    fi
-}
-
-function clone() {
-    repo=${1:?"clone requires repository"}
-    path=${2:-"."}
-    dir=${3:-""}
-
-    if [[ $# -le 3 ]]; then
-        shift $#
     else
-        shift 3
-    fi
+        if [ -n "$matches_in_hosts" ]; then
+            message "hosts" "updating existing hosts entry"
 
-    if [[ ! -d "${path}" ]]; then
-        mkdir -p "${path}"
-    fi
-
-    repo_name="$(rg -o '\w([:/]\w+[^?]+)' -r '$1' <<<"${repo}")"
-    repo_name=${repo_name:1}
-
-    if [[ "${dir}" = "" ]]; then
-        dir="$(basename "${repo_name}")"
-    fi
-
-    if [[ ! -d "${path}/${dir}" ]]; then
-        if git clone "${repo}" "${path}/${dir}" &>/dev/null; then
-            action git "${repo_name} ${F_GREEN}󰄲${F_RESET}"
+            # iterate over the line numbers on which matches were found
+            while read -r line_number; do
+                # replace the text of each line with the desired host entry
+                if [[ "$OSTYPE" == "darwin"* ]]; then
+                    sudo sed -i '' "${line_number}s/.*/${host_entry}/" /etc/hosts
+                else
+                    sudo sed -i "${line_number}s/.*/${host_entry}/" /etc/hosts
+                fi
+            done <<<"$matches_in_hosts"
         else
-            action git "${repo_name} ${F_RED}󱋭${F_RESET}"
+            message "hosts" "adding new hosts entry"
+            echo "$host_entry" | sudo tee -a /etc/hosts >/dev/null
         fi
-    else
-        cd "${path}/${dir}" || return
-
-        origin_url=$(git remote get-url origin 2>/dev/null)
-
-        if [[ "${repo}" == "${origin_url%.git}" ]]; then
-            action git "${repo_name} ${F_GRAY}${F_RESET}"
-        else
-            action git "${repo_name} (${repo} != ${origin_url}) ${F_RED}󱋭${F_RESET}"
-        fi
-
-        cd - &>/dev/null || return
-    fi
-
-    if [[ "$#" -ge 1 ]]; then
-        url="$1"
-        shift 1
-
-        cd "${path}/${dir}" || return
-
-        if git remote get-url origin --all 2>/dev/null | grep "$url" &>/dev/null; then
-            action git "${repo_name} pushurl -> ${url} ${F_GRAY}󰄲${F_RESET}"
-        else
-            if git remote set-url --add origin "${url}" &>/dev/null; then
-                action git "${repo_name} pushurl -> ${url} ${F_GREEN}󰄲${F_RESET}"
-            else
-                action git "${repo_name} pushurl -> ${url} ${F_RED}󱋭${F_RESET}"
-            fi
-        fi
-
-        cd - &>/dev/null || return
     fi
 }
 
@@ -366,48 +338,48 @@ function _add_systemd_kernel_parameter() {
     local configuration=${1:?"systemd-boot loader configuration required"}
     local new_kernel_parameter=${2:?"new parameter required"}
 
-    local kernel_paramters
-    declare -a kernel_paramters
-    IFS=' ' read -ra kernel_paramters <<<"$(grep options "${configuration}")"
+    local kernel_parameters
+    declare -a kernel_parameters
+    IFS=' ' read -ra kernel_parameters <<<"$(grep options "${configuration}")"
 
     local output
-    output=$(echo -n "current kernel_paramters: |")
-    output="${output}"$(printf "%s|" "${kernel_paramters[@]}")
+    output=$(echo -n "current kernel_parameters: |")
+    output="${output}"$(printf "%s|" "${kernel_parameters[@]}")
     message 'systemd-boot' "${output}"
 
-    for kernel_parameter in "${kernel_paramters[@]}"; do
+    for kernel_parameter in "${kernel_parameters[@]}"; do
         if [[ "${kernel_parameter}" == "${new_kernel_parameter}" ]]; then
             message "systemd-boot" "kernel_parameter ${new_kernel_parameter} already exists"
             return 0
         fi
     done
-    kernel_paramters+=("${new_kernel_parameter}")
+    kernel_parameters+=("${new_kernel_parameter}")
 
-    sudo sed -i -e "s|^options.*$|${kernel_paramters[*]}|" "${configuration}"
+    sudo sed -i -e "s|^options.*$|${kernel_parameters[*]}|" "${configuration}"
 }
 
 function _remove_systemd_kernel_parameter() {
     local configuration=${1:?"systemd-boot loader configuration required"}
     local new_kernel_parameter=${2:?"new parameter required"}
 
-    local kernel_paramters
-    declare -a kernel_paramters
-    IFS=' ' read -ra kernel_paramters <<<"$(grep options "${configuration}")"
+    local kernel_parameters
+    declare -a kernel_parameters
+    IFS=' ' read -ra kernel_parameters <<<"$(grep options "${configuration}")"
 
     local output
-    output=$(echo -n "current kernel_paramters: |")
-    output="${output}"$(printf "%s|" "${kernel_paramters[@]}")
+    output=$(echo -n "current kernel_parameters: |")
+    output="${output}"$(printf "%s|" "${kernel_parameters[@]}")
     message 'systemd-boot' "${output}"
 
     local found=0
-    for index in "${!kernel_paramters[@]}"; do
-        if [[ "${kernel_paramters[${index}]}" == "${new_kernel_parameter}" ]]; then
-            unset "kernel_paramters[${index}]"
+    for index in "${!kernel_parameters[@]}"; do
+        if [[ "${kernel_parameters[${index}]}" == "${new_kernel_parameter}" ]]; then
+            unset "kernel_parameters[${index}]"
             found=1
         fi
     done
 
     if [[ "${found}" -eq 1 ]]; then
-        sudo sed -i -e "s|^options.*$|${kernel_paramters[*]}|" "${configuration}"
+        sudo sed -i -e "s|^options.*$|${kernel_parameters[*]}|" "${configuration}"
     fi
 }
