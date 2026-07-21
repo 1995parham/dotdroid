@@ -68,6 +68,7 @@ Termux-Widget homescreen widget:
 - `documents-sync.sh`: force-mirror the document repos from GitHub. One-way — the phone is always made
   to match the remote, syncing each repo independently so one network failure does not abort the rest.
 - `org-sync.sh`: sync the org-notes repo, auto-committing and pushing local changes before pulling.
+- `send-sms.sh`: prompt for recipient(s) and a message, then send an SMS via termux-api after a confirmation.
 
 The sync scripts do **not** clone. Run `./start.sh repos` to clone (or fast-forward) the repositories at
 these paths; it marks each as a git safe directory and leaves any pre-existing non-git folder untouched:

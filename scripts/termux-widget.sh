@@ -34,6 +34,7 @@ main_pkg() {
 	copycat "termux-widget" "termux-widget/shortcuts/org-sync.sh" "$HOME/.shortcuts/org-sync.sh" 0
 	copycat "termux-widget" "termux-widget/shortcuts/documents-sync.sh" "$HOME/.shortcuts/documents-sync.sh" 0
 	copycat "termux-widget" "termux-widget/shortcuts/start-sshd.sh" "$HOME/.shortcuts/start-sshd.sh" 0
+	copycat "termux-widget" "termux-widget/shortcuts/send-sms.sh" "$HOME/.shortcuts/send-sms.sh" 0
 }
 
 main_brew() {
