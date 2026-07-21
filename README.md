@@ -54,6 +54,8 @@ List available scripts:
 - `./start.sh wallpapers`: sync wallpapers to `/sdcard/Pictures/wallpapers`.
 - `./start.sh termux-widget`: install widget shortcuts into `~/.shortcuts`.
 - `./start.sh ssh`: disable password auth in Termux sshd.
+- `./start.sh keys <username>`: authorize a GitHub user's public keys for incoming SSH.
+- `./start.sh repos`: clone the data repositories the sync shortcuts operate on.
 - `./start.sh boot`: install a Termux:Boot script that starts sshd at device boot.
 - `./start.sh schedule`: register JobScheduler jobs that run the sync shortcuts periodically.
 
@@ -67,8 +69,8 @@ Termux-Widget homescreen widget:
   to match the remote, syncing each repo independently so one network failure does not abort the rest.
 - `org-sync.sh`: sync the org-notes repo, auto-committing and pushing local changes before pulling.
 
-The sync scripts do **not** clone; the repositories must already exist at these paths. Clone them once
-before using the widgets:
+The sync scripts do **not** clone. Run `./start.sh repos` to clone (or fast-forward) the repositories at
+these paths; it marks each as a git safe directory and leaves any pre-existing non-git folder untouched:
 
 |              Path              | Repository                               |
 | :----------------------------: | :--------------------------------------- |

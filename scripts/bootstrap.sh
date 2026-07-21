@@ -19,6 +19,7 @@ export additionals=(
 	"termux-widget"
 	"wallpapers"
 	"ssh"
+	"repos"
 	"boot"
 	"schedule"
 )
