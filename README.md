@@ -54,6 +54,8 @@ List available scripts:
 - `./start.sh wallpapers`: sync wallpapers to `/sdcard/Pictures/wallpapers`.
 - `./start.sh termux-widget`: install widget shortcuts into `~/.shortcuts`.
 - `./start.sh ssh`: disable password auth in Termux sshd.
+- `./start.sh boot`: install a Termux:Boot script that starts sshd at device boot.
+- `./start.sh schedule`: register JobScheduler jobs that run the sync shortcuts periodically.
 
 ## Widget shortcuts
 
@@ -80,6 +82,19 @@ before using the widgets:
 - `documents-sync.sh` runs `git reset --hard` and `git clean -fdx` on the `/sdcard/Documents/*` repos: any
   local change and any untracked or ignored file is discarded so the phone exactly mirrors GitHub. Review the
   paths and branch name before running it.
+
+## Automation
+
+- `./start.sh boot` installs `~/.termux/boot/start-sshd.sh`, which starts sshd (and posts the IP notification)
+  on every reboot. It needs the [Termux:Boot](https://f-droid.org/en/packages/com.termux.boot/) app installed
+  and launched once. The script holds a `termux-wake-lock` so the SSH server stays reachable with the screen
+  off; run `termux-wake-unlock` to release it.
+- `./start.sh schedule` registers two Android JobScheduler jobs (they survive reboots and need Termux:API):
+  - `org-sync.sh` every 30 minutes on any network (job id `101`).
+  - `documents-sync.sh` hourly, only on unmetered Wi-Fi while charging (job id `102`).
+
+  Review them with `termux-job-scheduler --pending`, or remove them with `termux-job-scheduler --cancel-all`.
+  Android enforces a 15-minute minimum period and schedules jobs on a best-effort basis.
 
 ## Applications
 

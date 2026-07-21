@@ -19,6 +19,8 @@ export additionals=(
 	"termux-widget"
 	"wallpapers"
 	"ssh"
+	"boot"
+	"schedule"
 )
 
 pre_main() {
