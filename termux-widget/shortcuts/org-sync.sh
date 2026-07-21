@@ -280,7 +280,7 @@ if [ -n "$(local_changes)" ]; then
 	if [ "" == "$commit_msg" ]; then
 		commit_msg=${DEFAULT_AUTOCOMMIT_MSG}
 	fi
-	autocommit_cmd=$(echo "$autocommit_cmd" | sed "s/%message/$commit_msg/")
+	autocommit_cmd=${autocommit_cmd//%message/$commit_msg}
 
 	__log_msg "Committing local changes using ${autocommit_cmd}"
 	eval "$autocommit_cmd"
