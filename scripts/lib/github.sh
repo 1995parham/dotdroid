@@ -46,6 +46,14 @@ _github_release_extract_tar_xz() {
     tar -xJf "${archive_file}" -C "${extract_dir}"
 }
 
+# Extract tar.bz2 archive
+_github_release_extract_tar_bz2() {
+    local archive_file=$1
+    local extract_dir=$2
+
+    tar -xjf "${archive_file}" -C "${extract_dir}"
+}
+
 # Extract zip archive
 _github_release_extract_zip() {
     local archive_file=$1
@@ -159,6 +167,9 @@ _github_release_extract() {
     tar.xz)
         _github_release_extract_tar_xz "${archive_file}" "${extract_dir}"
         ;;
+    tar.bz2)
+        _github_release_extract_tar_bz2 "${archive_file}" "${extract_dir}"
+        ;;
     zip)
         _github_release_extract_zip "${archive_file}" "${extract_dir}"
         ;;
@@ -169,6 +180,9 @@ _github_release_extract() {
     deb)
         _github_release_extract_deb "${archive_file}" "${extract_dir}"
         return $?
+        ;;
+    gz)
+        gunzip -c "${archive_file}" >"${extract_dir}/${binary_name}"
         ;;
     "")
         # No extraction needed, just rename the file
@@ -189,13 +203,20 @@ _github_release_install_binary() {
     local binary_name=$2
     local install_dir=$3
 
-    if [[ ! -f "${temp_dir}/${binary_name}" ]]; then
+    local binary_path="${temp_dir}/${binary_name}"
+
+    # If not found at top level, search subdirectories
+    if [[ ! -f "${binary_path}" ]]; then
+        binary_path=$(find "${temp_dir}" -name "${binary_name}" -type f | head -n 1)
+    fi
+
+    if [[ -z "${binary_path}" || ! -f "${binary_path}" ]]; then
         message "github-release" "Binary ${binary_name} not found in archive" "error"
         return 1
     fi
 
-    chmod +x "${temp_dir}/${binary_name}"
-    mv "${temp_dir}/${binary_name}" "${install_dir}/"
+    chmod +x "${binary_path}"
+    mv "${binary_path}" "${install_dir}/"
 
     return 0
 }
@@ -244,6 +265,16 @@ require_github_release() {
     binary_name=$(eval echo "${2:?'binary name is required'}")
     local release_name=${3:?'release name is required (e.g., clash-aarch64-apple-darwin)'}
     local archive_ext=${4:-""}
+
+    # Airgapped escape hatch: when OFFLINE=1 is set, hosts that cannot
+    # reach github.com (e.g. an Iran-only egress) can still run scripts
+    # that depend on require_github_release. We log a skip and return 0
+    # so the calling script's framework treats the dependency as
+    # "satisfied (best-effort)" rather than failing the run.
+    if [[ "${OFFLINE:-0}" == "1" ]]; then
+        running "require" " github-release ${repo} ${binary_name} (skipped: OFFLINE=1)"
+        return 0
+    fi
 
     local install_dir="${HOME}/.local/bin"
     mkdir -p "${install_dir}"

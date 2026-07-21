@@ -23,10 +23,11 @@ _end() {
 
 _usage() {
     echo ""
-    echo "usage: ${program_name} [-y] [-h] script [script options]"
-    echo "  -h   display help"
-    echo "  -d   as dependency (internal usage)"
-    echo "  -y   yes to all"
+    echo "usage: ${program_name} [-y] [-h] [--allow-root] script [script options]"
+    echo "  -h            display help"
+    echo "  -d            as dependency (internal usage)"
+    echo "  -y            yes to all"
+    echo "  --allow-root  allow running as root user"
     echo ""
     echo " ${program_name} new for creating a new script"
     echo " ${program_name} list for see available scripts"
@@ -38,6 +39,28 @@ _parse_options() {
     show_help=false
     yes_to_all=0
     as_dependency=false
+    allow_root=false
+
+    # Handle long options before getopts
+    local args=()
+    local long_opts_count=0
+    for arg in "$@"; do
+        case ${arg} in
+        --allow-root)
+            allow_root=true
+            long_opts_count=$((long_opts_count + 1))
+            ;;
+        *)
+            args+=("${arg}")
+            ;;
+        esac
+    done
+
+    # Reset positional parameters to remaining args
+    set -- "${args[@]+"${args[@]}"}"
+
+    # Reset OPTIND for getopts
+    OPTIND=1
 
     while getopts 'dhy' argv; do
         case ${argv} in
@@ -55,6 +78,9 @@ _parse_options() {
             ;;
         esac
     done
+
+    # Adjust OPTIND to account for removed long options
+    OPTIND=$((OPTIND + long_opts_count))
 }
 
 _resolve_script_name() {
@@ -80,7 +106,7 @@ _resolve_script_paths() {
     local script=$1
     local paths=()
     local host
-    host="${HOSTNAME%%.*}"
+    host="$(_host_short)"
 
     # General script in scripts/
     if [[ -f "${main_root}/scripts/${script}.sh" ]]; then
@@ -106,12 +132,14 @@ _execute_scripts() {
     local script_args=()
     [[ $# -gt 0 ]] && script_args=("$@")
 
+    local host
+    host="$(_host_short)"
+
     local script_paths
     read -ra script_paths <<<"$(_resolve_script_paths "${script}")"
 
     if [[ ${#script_paths[@]} -eq 0 ]]; then
         message "pre" "404 script not found" "notice"
-        local host="${HOSTNAME%%.*}"
         message "pre" "404 script not found for ${host}" "notice"
         _usage
         return 1
@@ -120,8 +148,7 @@ _execute_scripts() {
     for script_path_entry in "${script_paths[@]}"; do
         IFS=':' read -r script_file script_root <<<"${script_path_entry}"
 
-        if [[ "${script_file}" == *"/hosts/"* ]] || [[ "${script_file}" == *"/${HOSTNAME%%.*}/"* ]]; then
-            local host="${HOSTNAME%%.*}"
+        if [[ "${script_file}" == *"/hosts/"* ]] || [[ "${script_file}" == *"/${host}/"* ]]; then
             message "pre" "run script for specific host: ${host}" "notice"
         fi
 
@@ -151,8 +178,9 @@ _main() {
     fi
 
     # handles root user
-    if [[ ${EUID} -eq 0 ]]; then
+    if [[ ${EUID} -eq 0 ]] && [[ ${allow_root} = false ]]; then
         message "pre" "it must run without the root permissions with a regular user." "error"
+        message "pre" "use --allow-root to override this check." "notice"
         return 1
     fi
 
@@ -226,7 +254,11 @@ _additionals() {
                 options="${options}y"
             fi
 
-            "${main_root}/start.sh" "${options}" "${additional[@]}"
+            if [[ "${allow_root}" = true ]]; then
+                "${main_root}/start.sh" --allow-root "${options}" "${additional[@]}"
+            else
+                "${main_root}/start.sh" "${options}" "${additional[@]}"
+            fi
         fi
     done
 }
@@ -251,7 +283,11 @@ _dependencies() {
 
         for dependency in "${dependencies[@]}"; do
             read -ra dependency <<<"${dependency}"
-            "${main_root}/start.sh" "${options}" "${dependency[@]}"
+            if [[ "${allow_root}" = true ]]; then
+                "${main_root}/start.sh" --allow-root "${options}" "${dependency[@]}"
+            else
+                "${main_root}/start.sh" "${options}" "${dependency[@]}"
+            fi
         done
     fi
 }
@@ -270,9 +306,17 @@ run() {
         main "$@"
     fi
 
-    if [[ -n "${USER+x}" ]] && declare -f "main_${USER}" >/dev/null; then
-        section_header " Attention on deck ${USER}"
-        "main_${USER}" "$@"
+    # user-specific phase.
+    #
+    # dispatch on ${PROFILE} when set, otherwise fall back to ${USER}. this lets
+    # a machine whose login name differs from the canonical profile (e.g. ellie,
+    # raha, elahe-dastan all map to "elahe") select its profile once via
+    # `export PROFILE=...` instead of every script carrying alias stubs like
+    # `main_ellie() { main_elahe; }`.
+    local profile="${PROFILE:-${USER:-}}"
+    if [[ -n "${profile}" ]] && declare -f "main_${profile}" >/dev/null; then
+        section_header " Attention on deck ${profile}"
+        "main_${profile}" "$@"
     fi
 }
 
