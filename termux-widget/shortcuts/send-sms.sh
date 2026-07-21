@@ -36,12 +36,16 @@ case "$reply" in
 	;;
 esac
 
-if termux-sms-send -n "$number" "$message"; then
-	echo "sent."
-	if type termux-notification >/dev/null 2>&1; then
-		termux-notification -t "SMS sent" -c "to $number" --alert-once --id 1376
-	fi
-else
-	echo "failed to send (is the SMS permission granted to Termux:API?)." >&2
+# termux-sms-send exits 0 even on failure (e.g. a missing permission), printing
+# a JSON error instead, so inspect its output rather than the exit status.
+output=$(termux-sms-send -n "$number" "$message" 2>&1)
+if [ -n "$output" ]; then
+	echo "failed to send: $output" >&2
+	echo "(is the SMS permission granted to Termux:API?)" >&2
 	exit 1
+fi
+
+echo "sent."
+if type termux-notification >/dev/null 2>&1; then
+	termux-notification -t "SMS sent" -c "to $number" --alert-once --id 1376
 fi
