@@ -1,6 +1,14 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
-cd /sdcard/Notes/org
+# Guard the cd: storage may be unmounted right after boot (before unlock /
+# storage permission), and without this every git command below would run in
+# $HOME against the wrong repository.
+cd /sdcard/Notes/org || {
+	echo "git-sync: org repo not accessible at /sdcard/Notes/org"
+	type termux-notification >/dev/null 2>&1 &&
+		termux-notification -c "org repo not accessible" -t git-sync-org --alert-once --id 1373
+	exit 1
+}
 
 # command used to auto-commit file modifications
 DEFAULT_AUTOCOMMIT_CMD="git add -u ; git commit -m \"%message\";"
