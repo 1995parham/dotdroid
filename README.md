@@ -55,10 +55,31 @@ List available scripts:
 - `./start.sh termux-widget`: install widget shortcuts into `~/.shortcuts`.
 - `./start.sh ssh`: disable password auth in Termux sshd.
 
+## Widget shortcuts
+
+`./start.sh termux-widget` installs three shortcuts into `~/.shortcuts`, runnable from a
+Termux-Widget homescreen widget:
+
+- `start-sshd.sh`: restart the Termux SSH server (`pkill sshd; sshd`).
+- `documents-sync.sh`: force-mirror the document repos from GitHub. One-way — the phone is always made
+  to match the remote, syncing each repo independently so one network failure does not abort the rest.
+- `org-sync.sh`: sync the org-notes repo, auto-committing and pushing local changes before pulling.
+
+The sync scripts do **not** clone; the repositories must already exist at these paths. Clone them once
+before using the widgets:
+
+|              Path              | Repository                               |
+| :----------------------------: | :--------------------------------------- |
+| `/sdcard/Documents/documents`  | `git@github.com:parham-alvani/documents` |
+| `/sdcard/Documents/profile-pics` | `git@github.com:parham-alvani/profile-pics` |
+|  `/sdcard/Documents/travels`   | `git@github.com:parham-alvani/travels`   |
+|      `/sdcard/Notes/org`       | `git@github.com:parham-alvani/notes`     |
+
 ## Safety
 
-- `termux-widget/shortcuts/documents-sync.sh` runs `git reset --hard` and `git clean -fdx` on the configured
-  `/sdcard/Documents/*` repos. Review the paths and branch name before running it.
+- `documents-sync.sh` runs `git reset --hard` and `git clean -fdx` on the `/sdcard/Documents/*` repos: any
+  local change and any untracked or ignored file is discarded so the phone exactly mirrors GitHub. Review the
+  paths and branch name before running it.
 
 ## Applications
 
